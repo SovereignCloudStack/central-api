@@ -1,6 +1,9 @@
 # Central API MVP
 
-Right now, this repository contains a script to mirror all crossplane openstack provider cluster-scoped resources to namespaced resources.
+Right now, this repository implements [issue 374](https://github.com/SovereignCloudStack/issues/issues/374).
+It contains a script (`gen.py`) to mirror all crossplane openstack provider cluster-scoped resources to namespaced resources in an SCS API group.
+
+Also, these instructions are striving to implement [namespaces as isolation mechanism](https://docs.crossplane.io/knowledge-base/guides/multi-tenant/#namespaces-as-an-isolation-mechanism) to implement a multi-tenant system backed by a single Kubernetes cluster.
 
 ## Quick Start
 
