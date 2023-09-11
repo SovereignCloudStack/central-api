@@ -41,7 +41,7 @@ Right now, this repository contains a script to mirror all crossplane openstack 
           "tenant_name": "tenant-name"
         }
     ```
-1. Setup RBAC for tenants
+1. Setup RBAC for tenants (wearing CSP hat)
     ```yaml
     apiVersion: rbac.authorization.k8s.io/v1
     kind: ClusterRole
