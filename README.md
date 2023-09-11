@@ -41,7 +41,41 @@ Right now, this repository contains a script to mirror all crossplane openstack 
           "tenant_name": "tenant-name"
         }
     ```
-1. Create resource (wearing tenant hat)
+1. Setup RBAC for tenants
+    ```yaml
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    metadata:
+      name: tenant
+    rules:
+    - apiGroups:
+      - api.scs.community
+      resources:
+      - '*'
+      verbs:
+      - '*'
+    ---
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: tenant
+      namespace: tenant-name
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      name: scs-bind
+      namespace: tenant-name
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: tenant
+    subjects:
+    - kind: ServiceAccount
+      name: tenant
+      namespace: tenant-name
+    ```
+1. Create resource (wearing tenant hat, `kubectl --as system:serviceaccount:tenant-name:tenant -n tenant-name`)
     ```yaml
     apiVersion: api.scs.community/v1alpha1
     kind: KeypairV2
@@ -65,3 +99,5 @@ Right now, this repository contains a script to mirror all crossplane openstack 
       flavorName: 'SCS-1V:1:20'
     ```
 1. Observe creation of resources
+
+Right now, it would be expected to hand out the `ServiceAccount` token to the actual tenant; When AuthN is done via OIDC, the `ServiceAccount` `tenant-name/tenant` may be dropped.
