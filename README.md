@@ -103,4 +103,4 @@ Also, these instructions are striving to implement [namespaces as isolation mech
     ```
 1. Observe creation of resources
 
-Right now, it would be expected to hand out the `ServiceAccount` token to the actual tenant; When AuthN is done via OIDC, the `ServiceAccount` `tenant-name/tenant` may be dropped.
+Right now, it would be expected to hand out the `ServiceAccount` token to the actual tenant; When AuthN is done via OIDC, the `ServiceAccount` `tenant-name/tenant` may be dropped and `RoleBinding` `tenant-name/scs-bind` may point to an OIDC user/group.
