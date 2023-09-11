@@ -1,0 +1,78 @@
+import yaml, kubernetes.client, kubernetes.config, copy, json, subprocess
+
+kubernetes.config.load_kube_config()
+
+apiext = kubernetes.client.ApiextensionsV1Api()
+
+crds = json.loads(apiext.list_custom_resource_definition(_preload_content=False).data)
+
+xrd = yaml.load("""
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xsomethingv2.api.scs.community
+spec:
+  group: api.scs.community
+  names:
+    kind: XSomethingV2
+    plural: xsomethingv2
+  claimNames:
+    kind: SomethingV2
+    plural: somethingv2s
+  versions:
+  - name: v1alpha1
+    referenceable: true
+    served: true
+    schema:
+      openAPIV3Schema: {}
+""", Loader=yaml.SafeLoader)
+
+comp = yaml.load("""
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xsomethingv2.api.scs.community
+spec:
+  resources:
+  - name: SomethingV2
+    base:
+      apiVersion: sometech.openstack.upbound.io/v1alpha1
+      kind: SomethingV2
+      spec:
+        forProvider: {}
+    patches:
+    - fromFieldPath: spec.claimRef.namespace
+      toFieldPath: spec.providerConfigRef.name
+      policy:
+        fromFieldPath: Required
+    - type: FromCompositeFieldPath
+      fromFieldPath: spec
+      toFieldPath: spec.forProvider
+      policy:
+        fromFieldPath: Required
+  compositeTypeRef:
+    apiVersion: api.scs.community/v1alpha1
+    kind: XSomethingV2
+""", Loader=yaml.SafeLoader)
+
+for crd in crds["items"]:
+    if not crd["metadata"]["name"].endswith(".openstack.upbound.io"):
+        continue
+    if "providerconfig" in crd["metadata"]["name"] or "storeconfig" in crd["metadata"]["name"]: continue
+    local_xrd = copy.deepcopy(xrd)
+    print("process", crd["spec"]["names"])
+    local_xrd["spec"]["versions"][0]["schema"]["openAPIV3Schema"] = {"properties": {"spec": {"type": "object", "properties": {}}}}
+    local_xrd["spec"]["versions"][0]["schema"]["openAPIV3Schema"]["properties"]["spec"]["properties"] = crd["spec"]["versions"][0]["schema"]["openAPIV3Schema"]["properties"]["spec"]["properties"]["forProvider"]["properties"]
+    local_xrd["metadata"]["name"] = f"x{crd['spec']['names']['plural']}.api.scs.community"
+    local_xrd["spec"]["names"] = {"kind": f"x{crd['spec']['names']['kind'].lower()}", "plural": f"x{crd['spec']['names']['plural']}"}
+    local_xrd["spec"]["claimNames"] = crd["spec"]["names"]
+    subprocess.run(["kubectl", "apply", "-f", "-"], input=yaml.dump(local_xrd).encode())
+
+    local_comp = copy.deepcopy(comp)
+    local_comp["metadata"]["name"] = f"x{crd['spec']['names']['plural']}.api.scs.community"
+    local_comp["spec"]["compositeTypeRef"]["kind"] = local_xrd['spec']['names']['kind']
+    local_comp["spec"]["compositeTypeRef"]["apiVersion"] = "api.scs.community/v1alpha1"
+    local_comp["spec"]["resources"][0]["base"]["kind"] = crd['spec']['names']['kind']
+    local_comp["spec"]["resources"][0]["base"]["apiVersion"] = crd['spec']['group'] + "/v1alpha1"
+    local_comp["spec"]["resources"][0]["name"] = crd['spec']['names']['kind']
+    subprocess.run(["kubectl", "apply", "-f", "-"], input=yaml.dump(local_comp).encode())
