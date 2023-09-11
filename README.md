@@ -8,7 +8,7 @@ Right now, this repository contains a script to mirror all crossplane openstack 
 1. Install crossplane
 1. Install openstack provider (See `provider.yaml`)
 1. Mirror openstack resources (See `gen.py`)
-1. Setup provider config:
+1. Setup provider config (wearing CSP hat)
     ```yaml
     apiVersion: v1
     kind: Namespace
@@ -41,7 +41,7 @@ Right now, this repository contains a script to mirror all crossplane openstack 
           "tenant_name": "tenant-name"
         }
     ```
-1. Create resource
+1. Create resource (wearing tenant hat)
     ```yaml
     apiVersion: api.scs.community/v1alpha1
     kind: KeypairV2
