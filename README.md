@@ -42,7 +42,7 @@ Right now, this repository contains a script to mirror all crossplane openstack 
         }
     ```
 1. Create resource
-    ```
+    ```yaml
     apiVersion: api.scs.community/v1alpha1
     kind: KeypairV2
     metadata:
