@@ -3,9 +3,9 @@
 Right now, this repository implements [issue 374](https://github.com/SovereignCloudStack/issues/issues/374).
 It contains a script (`gen.py`) to mirror all crossplane openstack provider cluster-scoped resources to namespaced resources in an SCS API group.
 
-[crossplane-contrib/x-generation](https://github.com/crossplane-contrib/x-generation) might be used as soon as [the required feature for namespace mapping](https://github.com/crossplane-contrib/x-generation/issues/21) is implemented.
-
 Also, these instructions are striving to implement [namespaces as isolation mechanism](https://docs.crossplane.io/knowledge-base/guides/multi-tenant/#namespaces-as-an-isolation-mechanism) to implement a multi-tenant system backed by a single Kubernetes cluster.
+
+[crossplane-contrib/x-generation](https://github.com/crossplane-contrib/x-generation) might be used as soon as [the required feature for namespace mapping](https://github.com/crossplane-contrib/x-generation/issues/21) is implemented.
 
 ## Quick Start
 
