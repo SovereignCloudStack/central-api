@@ -1,10 +1,10 @@
-1. Bootstrap host in e. g. CSP hidden tenant, install kind+CAPI there
+1. Bootstrap host in e. g. CSP hidden Openstack project, install kind+CAPI there
 ```mermaid
 flowchart LR
     A[CSP Bootstrap host] -->|install kind+CAPI| A
 ```
 
-2. Use bootstrapping kind+CAPI to create Mgmt cluster (in e. g. CSP hidden tenant)
+2. Use bootstrapping kind+CAPI to create Mgmt cluster (in e. g. CSP hidden Openstack project using application credentials)
 ```mermaid
 flowchart LR
     A[CSP Bootstrap host with kind+CAPI] -->|Create| B(CSP CAPI mgmt cluster)
@@ -23,14 +23,14 @@ flowchart TB
     B(CSP CAPI mgmt cluster) -->|Manage| B
 ```
 
-5. Use CAPI mgmt cluster to create central-api cluster
+5. Use CAPI mgmt cluster to create central-api cluster (in e. g. CSP hidden Openstack project using application credentials)
 ```mermaid
 flowchart LR
     B(CSP CAPI mgmt cluster) -->|Create+Manage| C(CSP central-api cluster)
     B -->|Manage| B
 ```
 
-6. Make all required changes to the central-api cluster to serve as central-api (this is where most automation will come in)
+6. Make all required changes to the central-api cluster to serve as central-api (this is where most automation will come in to place credentials for the tenant's Openstack project, for the tenant's keycloak realm etc.)
 ```mermaid
 flowchart LR
     B(CSP CAPI mgmt cluster) -->|Manage| C(CSP central-api cluster)
@@ -38,12 +38,13 @@ flowchart LR
     C -->|Install central-api components, establish access, setup RBAC etc.| C
 ```
 
-7. Actually make the central-api acessible to tenants, to manage their resources
+7. Actually make the central-api acessible to tenants, to manage their resources  (in tenant Openstack project using application credentials)
 ```mermaid
 flowchart LR
     B(CSP CAPI mgmt cluster) -->|Manage| C(CSP central-api cluster)
     B -->|Manage| B
-    C -->|Create+Manage| C1(Tenant workload cluster)
-    C -->|Manage| C2(Tenant IAM Realm)
-    C -->|Manage| C3(Tenant OpenStack resources)
+    C -->|Manage via CAPI| C1(Tenant workload cluster)
+    C -->|Manage via Crossplane| C2(Tenant IAM Realm)
+    C -->|Manage via Crossplane| C3(Tenant OpenStack resources)
+    U(Tenant user/employee) -->|kubectl apply -f resources.yaml| C
 ```
