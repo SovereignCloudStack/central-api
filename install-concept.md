@@ -38,7 +38,7 @@ flowchart LR
     C -->|Install central-api components, establish access, setup RBAC etc.| C
 ```
 
-7. Actually make the central-api accessible to tenants, to manage their resources  (in tenant Openstack project using application credentials)
+7. Actually make the central-api accessible to tenants, to manage their resources  (in tenant Openstack project using application credentials; in tenant Keycloak realm using some client credentials; ...)
 ```mermaid
 flowchart LR
     B(CSP CAPI mgmt cluster) -->|Manage| C(CSP central-api cluster)
