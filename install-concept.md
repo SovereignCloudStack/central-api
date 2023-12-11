@@ -30,7 +30,7 @@ flowchart LR
     B -->|Manage| B
 ```
 
-6. Make all required changes to the central-api cluster to serve as central-api (this is where most automation will come in to place credentials for the tenant's Openstack project, for the tenant's keycloak realm etc.)
+6. Make all required changes to the central-api cluster to serve as central-api. This is where most automation will take care of placing credentials for the tenant's Openstack project (probably application credentials), for the tenant's keycloak realm (probably some client credentials) etc.
 ```mermaid
 flowchart LR
     B(CSP CAPI mgmt cluster) -->|Manage| C(CSP central-api cluster)
@@ -38,7 +38,7 @@ flowchart LR
     C -->|Install central-api components, establish access, setup RBAC etc.| C
 ```
 
-7. Actually make the central-api accessible to tenants, to manage their resources  (in tenant Openstack project using application credentials; in tenant Keycloak realm using some client credentials; ...)
+7. Actually make the central-api accessible to tenants, to manage their resources
 ```mermaid
 flowchart LR
     B(CSP CAPI mgmt cluster) -->|Manage| C(CSP central-api cluster)
