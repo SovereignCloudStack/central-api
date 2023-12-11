@@ -1,22 +1,22 @@
-1. Bootstrap host in e. g. CSP hidden Openstack project, install kind+CAPI there
+1. Bootstrap host in e. g. CSP hidden Openstack project, install kind+CAPI there (See CAPI ["Bootstrap & Pivot"](https://cluster-api.sigs.k8s.io/clusterctl/commands/move.html#bootstrap--pivot))
 ```mermaid
 flowchart LR
     A[CSP Bootstrap host] -->|install kind+CAPI| A
 ```
 
-2. Use bootstrapping kind+CAPI to create Mgmt cluster (in e. g. CSP hidden Openstack project using application credentials)
+2. Use bootstrapping kind+CAPI to create Mgmt cluster in e. g. CSP hidden Openstack project using application credentials (See CAPI ["Bootstrap & Pivot"](https://cluster-api.sigs.k8s.io/clusterctl/commands/move.html#bootstrap--pivot))
 ```mermaid
 flowchart LR
     A[CSP Bootstrap host with kind+CAPI] -->|Create| B(CSP CAPI mgmt cluster)
 ```
 
-3. `clusterctl move` to new cluster, which should start managing itself
+3. Install CAPI on new mgmt cluster and `clusterctl move` resources from the bootstrapping cluster to new mgmt cluster, which should contain its own CAPI resources, then (See CAPI ["Bootstrap & Pivot"](https://cluster-api.sigs.k8s.io/clusterctl/commands/move.html#bootstrap--pivot))
 ```mermaid
 flowchart LR
     A[CSP Bootstrap host with kind+CAPI] -->|clusterctl move| B(CSP CAPI mgmt cluster)
 ```
 
-4. Remove bootstrapping host
+4. Remove bootstrapping host (See CAPI ["Bootstrap & Pivot"](https://cluster-api.sigs.k8s.io/clusterctl/commands/move.html#bootstrap--pivot))
 ```mermaid
 flowchart TB
     A[CSP Bootstrap host with kind+CAPI] -->|Delete| A
