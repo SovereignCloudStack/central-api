@@ -148,7 +148,57 @@ Any choice brings significant disadvantages:
   users who may opt to use more powerful provider-specific API's, instead.
 
 In sum: Going this route would be technically the best thing to do, yet does
-not seam feasible given tough trade-offs and limited resources.
+not seam feasible given tough trade-offs and limited resources.  
+If the opportunity arises to partner with some other organization with a lot
+of staff and resources, this option may be reevaluated, though.
 
 </details>
 
+## The chosen approach (for now)
+
+Goal: **Provide a "semantically" consistent API modelling most cloud resources
+that are in scope for SCS**.
+
+### Kubernetes API
+
+Instead of creating SCS-specific API idioms and building the implementation
+from scratch, the Kubernetes API will be "reused". Essentially, the Kubernetes
+API is just an opinionated REST API which has opinions on how a resource
+is defined, how it looks like, how it is reconciled/handled, how AuthN/AuthZ
+can be implemented. The Kubernetes ecosystem provides much tooling for working
+with such (custom) resource definitions: For creating the definitions
+themselves, building controllers, making them discoverable and deployable.
+
+As such, Kubernetes is a great choice for building any sort of resource
+management API - with some caveats regarding its deployment and the legacy
+of starting off as container orchestration tooling.
+
+### Crossplane tooling
+
+Crossplane even extends the Kubernetes API with "Composite Resource Definitions"
+(XRD) to make Kubernetes the base for platform engineering within organizations.
+
+Secondly, it provides a API machinery to bring any cloud resource into Kubernetes
+using backend-specific "providers" (roughly comparable with Terraform providers).
+As such, Crossplane with its provider ecosystem actually already did most of
+the heavy lifting for providing e.g. OpenStack resources inside of Kubernetes.
+
+On top, the platform engineering concepts in Crossplane make building multi-tenancy
+systems pretty straight-forward.
+
+Alright. Crossplane takes care of exposing OpenStack resources and does some
+fancy stuff regarding multi-tenancy. What about providing actual Kubernetes
+**workload** clusters?
+
+### Cluster stacks
+
+Cluster stacks are basically an abstraction over CAPI/ClusterAPI. As such, Cluster
+Stacks are already native to Kubernetes.
+
+How to bring multi-tenancy tenancy concepts from Crossplane into ClusterStacks/CAPI?
+That is to be determined. Yet, just building a composition including a Cluster
+Stacks resource seems to be good enough to get started.
+
+## Implementation
+
+See [the POC for inspiration](./poc-setup.md) for now.
