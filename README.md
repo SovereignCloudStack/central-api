@@ -102,7 +102,7 @@ resource "scs_kubernetes" "mykubernetes" {
 }
 ```
 
-Imagine a Crossplane provider like:
+Imagine a Crossplane provider (or DIY similar Kubernetes controller framework) like:
 
 ```yaml
 apiVersion: networking.scs.community/v1
@@ -117,8 +117,9 @@ kind: Kubernetes
 metadata:
   name: mykubernetes
 spec:
-  subnetRef:
-    name: mysubnet
+  forProvider:
+    subnetRef:
+      name: mysubnet
   # ...
 ```
 
