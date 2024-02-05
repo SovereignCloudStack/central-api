@@ -52,7 +52,7 @@ time bridging technologies manually, the best bet would probably be to setup
 e.g. Terraform (or OpenTofu)
 with a number of specialized providers to bring all their interdependent resources into
 a single place keeping track of relationships between resources across multiple API's.
-Caveat: Terraform/OpenTofu/... get's admin access, while RBAC for human access is still
+Caveat: Terraform/OpenTofu/... gets admin access, while RBAC for human access is still
 inconsistent.
 Organizations with a lot of time/money to spend probably are able/willing to build/buy
 themselves out of this situation, but that is not a solution for everyone.
