@@ -26,8 +26,8 @@ consistent with the
 The OpenStack API's share API idioms like the used AuthN/AuthZ mechanisms. But these
 are not applicable beyond OpenStack services.
 
-Entering general IAM, Keycloak has its own set of API endpoints and authentication
-flows.  
+Entering general IAM (Identity and Access Management), Keycloak has its own set of
+API endpoints and authentication flows.  
 Entering Kubernetes, CAPI uses the Kubernetes API with its own authentication
 configuration, RBAC and opinionated REST idioms.
 
