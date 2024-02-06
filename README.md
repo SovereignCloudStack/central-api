@@ -178,7 +178,7 @@ of starting off as container orchestration tooling.
 Crossplane even extends the Kubernetes API with "Composite Resource Definitions"
 (XRD) to make Kubernetes the base for platform engineering within organizations.
 
-Secondly, it provides a API machinery to bring any cloud resource into Kubernetes
+Secondly, it provides an API machinery to bring any cloud resource into Kubernetes
 using backend-specific "providers" (roughly comparable with Terraform providers).
 As such, Crossplane with its provider ecosystem actually already did most of
 the heavy lifting for providing e.g. OpenStack resources inside of Kubernetes.
