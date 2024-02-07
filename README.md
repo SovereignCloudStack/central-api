@@ -177,7 +177,9 @@ of starting off as container orchestration tooling.
 
 ### Crossplane tooling
 
-Crossplane even extends the Kubernetes API with "Composite Resource Definitions"
+Crossplane even extends the Kubernetes API with
+"[Compositions](https://docs.crossplane.io/v1.14/concepts/compositions/)" and
+"[Composite Resource Definitions](https://docs.crossplane.io/v1.14/concepts/composite-resource-definitions/)"
 (XRD) to make Kubernetes the base for platform engineering within organizations.
 
 Secondly, it provides an API machinery to bring any cloud resource into Kubernetes
@@ -186,7 +188,8 @@ As such, Crossplane with its provider ecosystem actually already did most of
 the heavy lifting for providing e.g. OpenStack resources inside of Kubernetes.
 
 On top, the platform engineering concepts in Crossplane make building multi-tenancy
-systems pretty straight-forward.
+systems pretty straight-forward, even for
+[single clusters](https://docs.crossplane.io/knowledge-base/guides/multi-tenant/#single-cluster-multi-tenancy).
 
 Alright. Crossplane takes care of exposing OpenStack resources and does some
 fancy stuff regarding multi-tenancy. What about providing actual Kubernetes
