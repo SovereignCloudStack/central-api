@@ -23,18 +23,20 @@ Each part of the stack is consistent within its own scope: E.g. The
 consistent with the
 [OpenStack Load Balancer API](https://docs.openstack.org/api-ref/load-balancer/v2/).
 
-The OpenStack API's share API idioms like the used AuthN/AuthZ mechanisms. But these
-are not applicable beyond OpenStack services.
+The OpenStack API's share API idioms like the used AuthN/AuthZ
+(Authentication/Authorization) mechanisms. But these are not applicable beyond
+OpenStack services.
 
 Entering general IAM (Identity and Access Management), Keycloak has its own set of
 API endpoints and authentication flows.  
-Entering Kubernetes, CAPI uses the Kubernetes API with its own authentication
-configuration, RBAC and opinionated REST idioms.
+Entering Kubernetes, CAPI ([Kubernetes Cluster API](https://cluster-api.sigs.k8s.io/))
+uses the Kubernetes API with its own authentication configuration, RBAC (Role Based
+Access Control) and opinionated resource management idioms.
 
-So, without a central API harmonizing at least the Auth/RBAC/REST semantics, users
-are left with a bunch of semantically incompatible API's. In case resources in
-different API's are somehow interconnected, the users have to take care of bridging
-these differences themselves.
+So, without a central API harmonizing at least the semantics of AuthN/AuthZ and
+resource management, users are left with a bunch of semantically incompatible API's.
+If resources in different API's are somehow interconnected, the users have to take
+care of bridging these differences themselves.
 
 Providing a consistent API across many different offerings with sort of consistent
 API idioms is something that primarily the big proprietary cloud providers manage to
@@ -192,7 +194,7 @@ fancy stuff regarding multi-tenancy. What about providing actual Kubernetes
 
 ### Cluster stacks
 
-Cluster stacks are basically an abstraction over CAPI/ClusterAPI. As such, Cluster
+Cluster stacks are basically an abstraction over Cluster API. As such, Cluster
 Stacks are already native to Kubernetes.
 
 How to bring multi-tenancy tenancy concepts from Crossplane into ClusterStacks/CAPI?
