@@ -148,7 +148,7 @@ Any choice brings significant disadvantages:
   users who may opt to use more powerful provider-specific API's, instead.
 
 In sum: Going this route would be technically the best thing to do, yet does
-not seam feasible given tough trade-offs and limited resources.  
+not seem feasible given tough trade-offs and limited resources.  
 If the opportunity arises to partner with some other organization with a lot
 of staff and resources, this option may be reevaluated, though.
 
