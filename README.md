@@ -167,6 +167,27 @@ of staff and resources, this option may be reevaluated, though.
 Goal: **Provide a "semantically" consistent API modelling most cloud resources
 that are in scope for SCS**.
 
+In other words: Bring each cloud resource type - as it is - into the central API.
+
+An `OpenStack Compute Instance` continues to be as-is with all of its usual
+properties and implementation details.  
+A `Keycloak Realm` continues to be as-is with all of its usual properties
+and implementation details [^1].
+
+The benefit is that all offered API objects can be managed using the same
+API idioms (AuthN/AuthZ/REST) with the same client tooling.
+
+[^1]: Actually, there were discussions to build a generic SCS API to support
+SCS installations powered by Zitadel. Approaching the issue a little
+bit like the "Abstract all the things!" consideration above, but focusing
+on two basic use cases (Firstly, setting up an identity federation to some
+existing identity provider; Secondly, managing users without remote identity
+provider). While not in scope for the first steps, this probably could be
+elegantly implemented as one generic Crossplane "Composite Resource Definition"
+backed by a Crossplane "Composition" defining either Keycloak objects OR
+Zitadel objects (given that Zitadel gets a Crossplane provider similar
+Kubernetes controller before).
+
 ### Kubernetes API
 
 Instead of creating SCS-specific API idioms and building the implementation
@@ -191,7 +212,7 @@ Crossplane even extends the Kubernetes API with
 Secondly, it provides an API machinery to bring any cloud resource into Kubernetes
 using backend-specific "providers" (roughly comparable with Terraform providers).
 As such, Crossplane with its provider ecosystem actually already did most of
-the heavy lifting for providing e.g. OpenStack resources inside of Kubernetes.
+the heavy lifting for providing e.g. OpenStack or Keycloak resources inside of Kubernetes.
 
 On top, the platform engineering concepts in Crossplane make building multi-tenancy
 systems pretty straight-forward, even for
