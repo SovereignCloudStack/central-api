@@ -149,6 +149,12 @@ Any choice brings significant disadvantages:
 - If such features are excluded, the API becomes overall less useful for the
   users who may opt to use more powerful provider-specific API's, instead.
 
+As such, making decisions with these tradeoffs in mind, is not about finding
+the perfect solution for everyone, but "just the right" balance that is
+practicable for providers and valuable for users. And finding these optimal
+balances is going to cost possibly even more time than actually implementing
+them in code.
+
 In sum: Going this route would be technically the best thing to do, yet does
 not seem feasible given tough trade-offs and limited resources.  
 If the opportunity arises to partner with some other organization with a lot
