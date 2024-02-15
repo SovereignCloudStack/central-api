@@ -162,7 +162,7 @@ of staff and resources, this option may be reevaluated, though.
 
 </details>
 
-## The chosen approach (for now)
+## The chosen approach to pursue
 
 ```mermaid
 flowchart TB
