@@ -286,5 +286,9 @@ to provide multi-tenancy, already. That is to be determined, though.
 
 ## Implementation
 
-See [the POC for inspiration](./poc-setup.md) for now. It includes access to an OpenStack API
+Disregarding any potential further abstractions, most work in automation for
+the providers will be about installing the central API and securely distributing
+credentials for backing services like OpenStack or Keycloak.  
+For that, there is no production implementation yet. See
+[the POC for inspiration](./poc-setup.md) for now. It includes access to an OpenStack API
 through Kubernetes/Crossplane.
