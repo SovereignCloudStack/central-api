@@ -151,7 +151,7 @@ Any choice brings significant disadvantages:
 
 As such, making decisions with these tradeoffs in mind, is not about finding
 the perfect solution for everyone, but "just the right" balance that is
-practicable for providers and valuable for users. And finding these optimal
+practicable for providers and valuable for users. Finding these optimal
 balances is going to cost possibly even more time than actually implementing
 them in code.
 
