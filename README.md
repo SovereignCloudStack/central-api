@@ -187,10 +187,10 @@ flowchart TB
         CAPI1["Cluster API"]
 
         User1
-            -- uses --> OpenStackCLI1["OpenStackCLI/OpenStackUI/Terraform/..."]
+            -- uses --> OpenStackCLI1["OpenStackCLI/OpenStackUI/\nTerraform/Ansible/..."]
             -- calls --> OpenStack1
         User1
-            -- uses --> KeycloakCLI1["KeycloakCLI/KeycloakUI/Terraform/..."]
+            -- uses --> KeycloakCLI1["KeycloakCLI/KeycloakUI/\nTerraform/Ansible/..."]
             -- calls --> Keycloak1
         User1
             -- uses --> K8sTooling1["kubectl/argocd/flux/..."]
