@@ -174,7 +174,7 @@ flowchart TB
         CAPI2["Cluster API"]
 
         User2
-            -- uses --> K8sTooling2["kubectl/argocd/flux/..."]
+            -- uses --> K8sTooling2["kubectl/\nargocd/flux/..."]
         K8sTooling2 -- calls --> CentralAPI
         CentralAPI -- calls --> OpenStack2
         CentralAPI -- calls --> Keycloak2
@@ -193,7 +193,7 @@ flowchart TB
             -- uses --> KeycloakCLI1["KeycloakCLI/KeycloakUI/\nTerraform/Ansible/..."]
             -- calls --> Keycloak1
         User1
-            -- uses --> K8sTooling1["kubectl/argocd/flux/..."]
+            -- uses --> K8sTooling1["kubectl/\nargocd/flux/..."]
             -- calls --> CAPI1
     end
 ```
