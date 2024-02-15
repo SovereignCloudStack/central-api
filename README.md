@@ -272,9 +272,11 @@ fancy stuff regarding multi-tenancy. What about providing actual Kubernetes
 Instead, they are complementing Cluster API by providing `ClusterClasses`.
 
 It is still to be determined how to bring multi-tenancy concepts from Crossplane
-into ClusterStacks/CAPI, if even required. Enforcing some parameters inside of
-a cluster class may be enough to provide multi-tenancy, already. That is to be
-determined, though.
+into ClusterStacks/CAPI, if even required.
+
+Should the provider be responsible for creating `ClusterClasses`?
+If yes, enforcing some parameters inside via a `ClusterClass` may be enough
+to provide multi-tenancy, already. That is to be determined, though.
 
 ## Implementation
 
