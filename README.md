@@ -265,15 +265,18 @@ Alright. Crossplane takes care of exposing OpenStack resources and does some
 fancy stuff regarding multi-tenancy. What about providing actual Kubernetes
 **workload** clusters?
 
-### Cluster stacks
+### Cluster stacks / Cluster API
 
-Cluster stacks are basically an abstraction over Cluster API. As such, Cluster
-Stacks are already native to Kubernetes.
+[Cluster stacks](https://github.com/SovereignCloudStack/cluster-stacks) do
+[not replace the use of Cluster API](https://github.com/SovereignCloudStack/cluster-stack-operator/blob/adb648ceaebddca04a015fbea0319110ca99a5cc/docs/architecture/user-flow.md#recap---how-do-cluster-api-and-cluster-stacks-work-together).
+Instead, they are complementing Cluster API by providing `ClusterClasses`.
 
-How to bring multi-tenancy tenancy concepts from Crossplane into ClusterStacks/CAPI?
-That is to be determined. Yet, just building a composition including a Cluster
-Stacks resource seems to be good enough to get started.
+It is still to be determined how to bring multi-tenancy concepts from Crossplane
+into ClusterStacks/CAPI, if even required. Enforcing some parameters inside of
+a cluster class may be enough to provide multi-tenancy, already. That is to be
+determined, though.
 
 ## Implementation
 
-See [the POC for inspiration](./poc-setup.md) for now.
+See [the POC for inspiration](./poc-setup.md) for now. It includes access to an OpenStack API
+through Kubernetes/Crossplane.
