@@ -168,10 +168,12 @@ of staff and resources, this option may be reevaluated, though.
 flowchart TB
     subgraph "With central API (simplified)"
         User2{"User"}
-        CentralAPI["Central API"]
-        OpenStack2["OpenStack API"]
-        Keycloak2["Keycloak API"]
-        CAPI2["Cluster API"]
+        subgraph "provider responsibility"
+            CentralAPI["Central API"]
+            OpenStack2["OpenStack API"]
+            Keycloak2["Keycloak API"]
+            CAPI2["Cluster API"]
+        end
 
         User2
             -- uses --> K8sTooling2["kubectl/\nargocd/flux/..."]
@@ -182,8 +184,10 @@ flowchart TB
     end
     subgraph "Without central API (simplified)"
         User1{"User"}
-        OpenStack1["OpenStack API"]
-        Keycloak1["Keycloak API"]
+        subgraph "provider responsibility"
+            OpenStack1["OpenStack API"]
+            Keycloak1["Keycloak API"]
+        end
         CAPI1["Cluster API"]
 
         User1
