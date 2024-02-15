@@ -164,6 +164,40 @@ of staff and resources, this option may be reevaluated, though.
 
 ## The chosen approach (for now)
 
+```mermaid
+flowchart TB
+    subgraph "With central API (simplified)"
+        User2{"User"}
+        CentralAPI["Central API"]
+        OpenStack2["OpenStack API"]
+        Keycloak2["Keycloak API"]
+        CAPI2["Cluster API"]
+
+        User2
+            -- uses --> K8sTooling2["kubectl/argocd/flux/..."]
+        K8sTooling2 -- calls --> CentralAPI
+        CentralAPI -- calls --> OpenStack2
+        CentralAPI -- calls --> Keycloak2
+        CentralAPI -- calls --> CAPI2
+    end
+    subgraph "Without central API (simplified)"
+        User1{"User"}
+        OpenStack1["OpenStack API"]
+        Keycloak1["Keycloak API"]
+        CAPI1["Cluster API"]
+
+        User1
+            -- uses --> OpenStackCLI1["OpenStackCLI/OpenStackUI/Terraform/..."]
+            -- calls --> OpenStack1
+        User1
+            -- uses --> KeycloakCLI1["KeycloakCLI/KeycloakUI/Terraform/..."]
+            -- calls --> Keycloak1
+        User1
+            -- uses --> K8sTooling1["kubectl/argocd/flux/..."]
+            -- calls --> CAPI1
+    end
+```
+
 Goal: **Provide a "semantically" consistent API modelling most cloud resources
 that are in scope for SCS**.
 
