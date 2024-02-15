@@ -213,7 +213,7 @@ There were discussions happening about that already: Regarding IAM management [^
 and Kubernetes management [^2].
 
 However, the **main** benefit is that all offered API objects can be managed
-using the same API idioms (AuthN/AuthZ/REST) with the same client tooling.
+using the same API idioms (AuthN/AuthZ/REST) with the same client tooling [^3].
 
 [^1]: There were discussions to build a generic SCS API to support
 SCS installations powered by Zitadel. Approaching the issue a little
@@ -230,6 +230,12 @@ Kubernetes controller before).
 "Composite Resource Definition" like in [^1] may be created. Alternatively,
 Gardnener CRD's could maybe just be mirrored in their Central API instance,
 still creating an interoperability benefit through "semantic" compatibility.
+
+[^3]: Which is also not to say that it will be suggested to providers to disable
+their public OpenStack/Keycloak/... API's, preventing use of native
+OpenStack/Keycloak/... tooling and breaking existing solutions.
+Extensively using these API's together with the central API may compromise
+the benefits of its uniform AuthZ, though.
 
 ### Kubernetes API
 
