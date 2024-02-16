@@ -279,7 +279,8 @@ fancy stuff regarding multi-tenancy. What about providing actual Kubernetes
 
 [Cluster stacks](https://github.com/SovereignCloudStack/cluster-stacks) do
 [not replace the use of Cluster API](https://github.com/SovereignCloudStack/cluster-stack-operator/blob/adb648ceaebddca04a015fbea0319110ca99a5cc/docs/architecture/user-flow.md#recap---how-do-cluster-api-and-cluster-stacks-work-together).
-Instead, they are complementing Cluster API by providing `ClusterClasses`.
+Instead, they are complementing Cluster API by providing `ClusterClasses`, node
+images (if required) and workload cluster addons.
 
 It is still to be determined how to bring multi-tenancy concepts from Crossplane
 into ClusterStacks/CAPI, if even required.
