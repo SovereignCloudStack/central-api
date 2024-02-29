@@ -68,6 +68,29 @@ like only Kubernetes-as-a-Service (and build the rest as user).
 
 </details>
 
+<details><summary>Promote OpenStack API to primary SCS standard</summary>
+
+### Promote OpenStack API to primary SCS standard
+
+As already established [above](#Challenge), OpenStack already provides consistent
+API's with shared idioms and AuthN/AuthZ mechanisms - not only for pure
+["compute/VM"](https://docs.openstack.org/api-ref/compute) solutions,
+but for
+[managing Kubernetes clusters via "Magnum"](https://docs.openstack.org/api-ref/container-infrastructure-management),
+as well. While the default Magnum implementation did not seem to live
+up to expectations yet, new implementations using Cluster API seem to
+grow in [popularity](https://www.stackhpc.com/magnum-clusterapi.html).
+
+This is not the pursued solution, as:
+
+- Kubernetes API's are generally more wide-spread / popular,
+  provide more extensibility tooling for adding other arbitrary services
+- This would go against SCS's
+  [technological vision](https://scs.community/about/#technological-vision)
+  which does not envision OpenStack as primary SCS service.
+
+</details>
+
 <details><summary>The intuitive choice: Abstract away all the things!</summary>
 
 ### The intuitive choice: Abstract away all the things!
