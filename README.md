@@ -85,7 +85,7 @@ This is not the pursued solution, as:
 
 - Kubernetes API's are generally more wide-spread / popular,
   provide more extensibility tooling for adding other arbitrary services
-- This would go against SCS's
+- This would not be well aligned with SCS's
   [technological vision](https://scs.community/about/#technological-vision)
   which does not envision OpenStack as primary SCS service.
 
