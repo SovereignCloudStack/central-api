@@ -2,13 +2,15 @@
 
 ## Premise
 
-By embracing existing open source solutions and bundling them, SCS provides a viable alternative to widely adopted proprietary cloud offerings, including
+By embracing existing open source solutions and bundling them, SCS provides a viable
+alternative to widely adopted proprietary cloud offerings, including
 Infrastructure-as-a-Service offerings, Kubernetes-as-a-Service offerings and other
 X-as-a-Service offerings.
 
 The choice to embrace existing technology has huge advantages over starting from
 scratch.
-By not reinventing wheels, a lot of effort is saved and existing communities are strengthened. The adoption of existing open standards is supported, reducing
+By not reinventing wheels, a lot of effort is saved and existing communities are
+strengthened. The adoption of existing open standards is supported, reducing
 market fragmentation and increasing interoperability.
 
 ## Challenge
@@ -48,7 +50,8 @@ vendor lock-in feature.
 ### Self-Service solution
 
 Users that want to avoid such vendor lock-in as well as want to avoid spending much
-time bridging technologies manually, the best bet would probably be to setup infrastructure-as-code (IaC) tooling (such as OpenTofu, Terraform and alike)
+time bridging technologies manually, the best bet would probably be to setup
+infrastructure-as-code (IaC) tooling (such as OpenTofu, Terraform and alike)
 with a number of specialized providers to bring all their interdependent resources into
 a single place keeping track of relationships between resources across multiple API's.
 Caveat: Infrastructure-as-code tooling gets admin access, while RBAC for human access is still
