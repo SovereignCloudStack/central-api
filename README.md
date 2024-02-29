@@ -2,15 +2,13 @@
 
 ## Premise
 
-By embracing existing open source solutions and bundling them, SCS is intended to
-provide a viable alternative to widely adopted proprietary cloud offerings, including
+By embracing existing open source solutions and bundling them, SCS provides a viable alternative to widely adopted proprietary cloud offerings, including
 Infrastructure-as-a-Service offerings, Kubernetes-as-a-Service offerings and other
 X-as-a-Service offerings.
 
 The choice to embrace existing technology has huge advantages over starting from
 scratch.
-By not reinventing wheels, a lot of effort can be saved. Existing communities can
-be strengthened. The adoption of existing open standards is supported, reducing
+By not reinventing wheels, a lot of effort is saved and existing communities are strengthened. The adoption of existing open standards is supported, reducing
 market fragmentation and increasing interoperability.
 
 ## Challenge
@@ -50,11 +48,10 @@ vendor lock-in feature.
 ### Self-Service solution
 
 Users that want to avoid such vendor lock-in as well as want to avoid spending much
-time bridging technologies manually, the best bet would probably be to setup
-e.g. Terraform (or OpenTofu)
+time bridging technologies manually, the best bet would probably be to setup infrastructure-as-code (IaC) tooling (such as OpenTofu, Terraform and alike)
 with a number of specialized providers to bring all their interdependent resources into
 a single place keeping track of relationships between resources across multiple API's.
-Caveat: Terraform/OpenTofu/... gets admin access, while RBAC for human access is still
+Caveat: Infrastructure-as-code tooling gets admin access, while RBAC for human access is still
 inconsistent.
 Organizations with a lot of time/money to spend probably are able/willing to build/buy
 themselves out of this situation, but that is not a solution for everyone.
@@ -127,7 +124,7 @@ spec:
 
 This is obviously desirable from a user's perspective.
 However, unfortunately, it is also much more work than the SCS project can
-realistically build and maintain in the short/medium term.
+realistically build and maintain in the short or medium term.
 
 It also comes with the requirement to make many tough trade-off decisions.
 For example:
