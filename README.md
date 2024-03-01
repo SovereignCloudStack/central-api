@@ -168,6 +168,7 @@ Any choice brings significant disadvantages:
   some providers may have difficulties adopting the API.
 - If such features are included as optional features, the ability to migrate
   from one provider to another suffers significantly. Without this ability,
+  but with the added complexity/rewriting of an abstraction layer,
   users also may opt to use provider-specific API's, instead.
 - If such features are excluded, the API becomes overall less useful for the
   users who may opt to use more powerful provider-specific API's, instead.
