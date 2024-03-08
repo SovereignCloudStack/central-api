@@ -83,8 +83,9 @@ grow in [popularity](https://www.stackhpc.com/magnum-clusterapi.html).
 
 This is not the pursued solution, as:
 
-- Kubernetes API's are generally more wide-spread and popular
-- Kubernetes API's provide more extensibility tooling for adding other arbitrary services
+- Kubernetes API's are generally more wide-spread and popular.
+- The Kubernetes ecosystem provides more extensibility tooling for adding more services
+  of any kind.
 - This would not be well aligned with SCS's
   [technological vision](https://scs.community/about/#technological-vision)
   which does not envision OpenStack as primary SCS service.
