@@ -83,8 +83,8 @@ grow in [popularity](https://www.stackhpc.com/magnum-clusterapi.html).
 
 This is not the pursued solution, as:
 
-- Kubernetes API's are generally more wide-spread / popular,
-  provide more extensibility tooling for adding other arbitrary services
+- Kubernetes API's are generally more wide-spread and popular
+- Kubernetes API's provide more extensibility tooling for adding other arbitrary services
 - This would not be well aligned with SCS's
   [technological vision](https://scs.community/about/#technological-vision)
   which does not envision OpenStack as primary SCS service.
@@ -252,7 +252,7 @@ existing identity provider; Secondly, managing users without remote identity
 provider). While not in scope for the first steps, this probably could be
 elegantly implemented as one generic Crossplane "Composite Resource Definition"
 backed by a Crossplane "Composition" defining either Keycloak objects OR
-Zitadel objects (given that Zitadel gets a Crossplane provider similar
+Zitadel objects (given that Zitadel gets a Crossplane provider or a similar
 Kubernetes controller before).
 
 [^2]: In order to cover providers that use Gardnener, a generic Crossplane
