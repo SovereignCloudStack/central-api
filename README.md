@@ -104,25 +104,26 @@ defined using consistent patterns and terminology, never leaking implementation 
 Imagine CLI access like:
 
 ```bash
-scs create subnet --group foo
-scs create k8s --group foo my-k8s-01
+scs create project myproject
+scs create subnet --project=myproject mysubnet
+scs create k8s --project=myproject --subnet=mysubnet mykubernetes
 ```
 
 Imagine using a Terraform provider like:
 
 ```hcl
-resource "scs_group" "mygroup" {
-  name = "mygroup"
+resource "scs_project" "myproject" {
+  name = "myproject"
 }
 resource "scs_subnet" "mysubnet" {
-  group = scs_group.name
-  name  = "mysubnet"
+  project = scs_project.name
+  name    = "mysubnet"
   # ...
 }
 resource "scs_kubernetes" "mykubernetes" {
-  group  = scs_group.name
-  name   = "mykubernetes"
-  subnet = scs_subnet.mysubnet.id
+  project = scs_project.name
+  subnet  = scs_subnet.mysubnet.name
+  name    = "mykubernetes"
   # ...
 }
 ```
@@ -130,11 +131,21 @@ resource "scs_kubernetes" "mykubernetes" {
 Imagine a Crossplane provider (or DIY similar Kubernetes controller framework) like:
 
 ```yaml
+apiVersion: management.scs.community/v1
+kind: Project
+metadata:
+  name: myproject
+spec:
+  # ...
+---
 apiVersion: networking.scs.community/v1
 kind: Subnet
 metadata:
   name: mysubnet
 spec:
+  forProvider:
+    projectRef:
+      name: myproject
   # ...
 ---
 apiVersion: kubernetes.scs.community/v1
@@ -143,6 +154,8 @@ metadata:
   name: mykubernetes
 spec:
   forProvider:
+    projectRef:
+      name: myproject
     subnetRef:
       name: mysubnet
   # ...
