@@ -116,12 +116,12 @@ resource "scs_project" "myproject" {
   name = "myproject"
 }
 resource "scs_subnet" "mysubnet" {
-  project = scs_project.name
+  project = scs_project.myproject.name
   name    = "mysubnet"
   # ...
 }
 resource "scs_kubernetes" "mykubernetes" {
-  project = scs_project.name
+  project = scs_project.myproject.name
   subnet  = scs_subnet.mysubnet.name
   name    = "mykubernetes"
   # ...
