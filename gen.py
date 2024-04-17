@@ -1,5 +1,6 @@
 import yaml, kubernetes.client, kubernetes.config, copy, json, subprocess
 
+# Reads the KUBECONFIG env variable or uses ~/.kube/config
 kubernetes.config.load_kube_config()
 
 apiext = kubernetes.client.ApiextensionsV1Api()
@@ -56,9 +57,17 @@ spec:
 """, Loader=yaml.SafeLoader)
 
 for crd in crds["items"]:
-    if not crd["metadata"]["name"].endswith(".openstack.upbound.io"):
+    name = crd["metadata"]["name"]
+    if not name.endswith(".openstack.upbound.io") and not name.endswith(".openstack.crossplane.io"):
+        print("Skipping item {}".format(name))
         continue
-    if "providerconfig" in crd["metadata"]["name"] or "storeconfig" in crd["metadata"]["name"]: continue
+
+    if "providerconfig" in name or "storeconfig" in name:
+        print("Skipping item {}".format(name))
+        continue
+
+    print("Processing {}".format(name))
+
     local_xrd = copy.deepcopy(xrd)
     print("process", crd["spec"]["names"])
     local_xrd["spec"]["versions"][0]["schema"]["openAPIV3Schema"] = {"properties": {"spec": {"type": "object", "properties": {}}}}
