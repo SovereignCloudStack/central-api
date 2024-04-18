@@ -1,0 +1,20 @@
+apiVersion: api.scs.community/v1alpha1
+kind: KeypairV2
+metadata:
+  name: admin
+  namespace: centralapiuser
+spec:
+  name: admin-keypair
+  publicKey: |-
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIbEaiop9GSlPmLlzAqODjQnq0/XMYfbJi4u3T3x5Lix
+---
+apiVersion: api.scs.community/v1alpha1
+kind: InstanceV2
+metadata:
+  name: testing-vm
+  namespace: centralapiuser
+spec:
+  name: testing-vm
+  keyPair: admin-keyPair
+  imageName: 'Debian 12'
+  flavorName: 'SCS-1V:1:20'

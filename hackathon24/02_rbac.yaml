@@ -1,0 +1,31 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: centralapiuser
+rules:
+- apiGroups:
+  - api.scs.community
+  resources:
+  - '*'
+  verbs:
+  - '*'
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: centralapiuser
+  namespace: centralapiuser
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: scs-bind
+  namespace: centralapiuser
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: centralapiuser
+subjects:
+- kind: ServiceAccount
+  name: centralapiuser
+  namespace: centralapiuser

@@ -3,4 +3,4 @@ kind: Provider
 metadata:
   name: provider-openstack
 spec:
-  package: xpkg.upbound.io/crossplane-contrib/provider-openstack:v0.1.7
+  package: xpkg.upbound.io/crossplane-contrib/provider-openstack:v0.3.0
