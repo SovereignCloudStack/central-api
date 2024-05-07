@@ -28,7 +28,7 @@ The OpenStack API's share API idioms like the used AuthN/AuthZ
 OpenStack services.
 
 Entering general IAM (Identity and Access Management), Keycloak has its own set of
-API endpoints and authentication flows.
+API endpoints and authentication flows.  
 Entering Kubernetes, CAPI ([Kubernetes Cluster API](https://cluster-api.sigs.k8s.io/))
 uses the Kubernetes API with its own authentication configuration, RBAC (Role Based
 Access Control) and opinionated resource management idioms.
@@ -171,7 +171,7 @@ For example:
 
 Provider "A" offers to hide Kubernetes API server endpoints from the public
 internet, utilizing some sort of bastion host. Provider "B" instead implements
-IP based firewall blocking on the public endpoints. Provider "C" does neither.
+IP based firewall blocking on the public endpoints. Provider "C" does neither.  
 Should the API follow either provider "A" or "B"? Should both approaches be
 implemented, but as optional features? If any of these approaches is defined
 to be a mandatory feature to support, provider "C" cannot be compliant.
@@ -195,7 +195,7 @@ balances is going to cost possibly even more time than actually implementing
 them in code.
 
 In sum: Going this route would be technically the best thing to do, yet does
-not seem feasible given tough trade-offs and limited resources.
+not seem feasible given tough trade-offs and limited resources.  
 If the opportunity arises to partner with some other organization with a lot
 of staff and resources, this option may be reevaluated, though.
 
@@ -247,7 +247,7 @@ that are in scope for SCS**.
 In other words: Bring each cloud resource type - as it is - into the central API.
 
 An `OpenStack Compute Instance` continues to be as-is with all of its usual
-properties and implementation details.
+properties and implementation details.  
 A `Keycloak Realm` continues to be as-is with all of its usual properties
 and implementation details.
 
@@ -332,7 +332,7 @@ to provide multi-tenancy, already. That is to be determined, though.
 
 Disregarding any potential further abstractions, most work in automation for
 the providers will be about installing the central API and securely distributing
-credentials for backing services like OpenStack or Keycloak.
+credentials for backing services like OpenStack or Keycloak.  
 For that, there is no production implementation yet. See
-[the POC for inspiration](./docs/poc-setup.md) for now. It includes access to an OpenStack API
+[the POC for inspiration](./poc-setup.md) for now. It includes access to an OpenStack API
 through Kubernetes/Crossplane.
