@@ -1,0 +1,110 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: shootcluster.api.scs.community
+spec:
+  resources:
+  - name: Cluster
+    base:
+      apiVersion: kubernetes.crossplane.io/v1alpha2
+      kind: Object
+      metadata:
+        name: TO-BE-SET
+      spec:
+        providerConfigRef:
+          name: sa-gardener-apiserver
+        forProvider:
+          manifest:
+            kind: Shoot
+            apiVersion: core.gardener.cloud/v1beta1
+            metadata:
+              namespace: garden-ylgloie5sy
+              name: TO-BE-SET
+            spec:
+              provider:
+                type: openstack
+                infrastructureConfig:
+                  apiVersion: openstack.provider.extensions.gardener.cloud/v1alpha1
+                  kind: InfrastructureConfig
+                  networks:
+                    workers: 10.250.0.0/16
+                  floatingPoolName: public
+                controlPlaneConfig:
+                  apiVersion: openstack.provider.extensions.gardener.cloud/v1alpha1
+                  kind: ControlPlaneConfig
+                  loadBalancerProvider: amphora
+                workers:
+                  - cri:
+                      name: containerd
+                    machine:
+                      type: SCS-2V-4
+                      image:
+                        name: gardenlinux
+                        version: 1443.3.0
+                      architecture: amd64
+                    volume:
+                      type: ssd
+                      size: 50Gi
+                    zones:
+                      - nova
+                    name: worker-oajkj
+                    minimum: 1
+                    maximum: 2
+                    maxSurge: 1
+              networking:
+                nodes: 10.250.0.0/16
+                type: calico
+              cloudProfileName: regiocloud
+              secretBindingName: default-openstack-secret
+              region: RegionA
+              purpose: production
+              kubernetes:
+                version: TO-BE-SET #1.29.5
+                enableStaticTokenKubeconfig: false
+              addons:
+                kubernetesDashboard:
+                  enabled: false
+                nginxIngress:
+                  enabled: false
+              maintenance:
+                timeWindow:
+                  begin: 220000+0200
+                  end: 230000+0200
+                autoUpdate:
+                  kubernetesVersion: true
+                  machineImageVersion: true
+              hibernation:
+                schedules: []
+    patches:
+    - fromFieldPath: spec.claimRef.namespace
+      toFieldPath: spec.providerConfigRef.name
+      policy:
+        fromFieldPath: Required
+    - type: FromCompositeFieldPath
+      fromFieldPath: spec.version
+      toFieldPath: spec.forProvider.manifest.spec.kubernetes.version
+      policy:
+        fromFieldPath: Required
+    - type: FromCompositeFieldPath
+      fromFieldPath: spec.claimRef.name
+      toFieldPath: spec.forProvider.manifest.metadata.name
+      transforms:
+      - type: string
+        string:
+          type: Format
+          fmt: "%s-shoot"
+      policy:
+        fromFieldPath: Required
+    - type: FromCompositeFieldPath
+      fromFieldPath: spec.claimRef.name
+      toFieldPath: metadata.name
+      transforms:
+      - type: string
+        string:
+          type: Format
+          fmt: "%s-shoot"
+      policy:
+        fromFieldPath: Required
+  compositeTypeRef:
+    apiVersion: api.scs.community/v1alpha1
+    kind: XCluster
