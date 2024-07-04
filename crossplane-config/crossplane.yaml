@@ -1,0 +1,10 @@
+apiVersion: meta.pkg.crossplane.io/v1alpha1
+kind: Configuration
+metadata:
+  name: scs-central-api
+spec:
+  dependsOn:
+  - provider: xpkg.upbound.io/crossplane-contrib/provider-openstack
+    version: ">=v0.4.0"
+  crossplane:
+    version: ">=v1.16.0"
