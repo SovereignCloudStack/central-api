@@ -1,4 +1,6 @@
-import yaml, kubernetes.client, kubernetes.config, copy, json, subprocess
+# Loads managed openstack resources from API server, generates mirroring XRD's and composites
+
+import yaml, kubernetes.client, kubernetes.config, copy, json, subprocess, os
 
 # Reads the KUBECONFIG env variable or uses ~/.kube/config
 kubernetes.config.load_kube_config()
@@ -75,7 +77,9 @@ for crd in crds["items"]:
     local_xrd["metadata"]["name"] = f"x{crd['spec']['names']['plural']}.api.scs.community"
     local_xrd["spec"]["names"] = {"kind": f"x{crd['spec']['names']['kind'].lower()}", "plural": f"x{crd['spec']['names']['plural']}"}
     local_xrd["spec"]["claimNames"] = crd["spec"]["names"]
-    subprocess.run(["kubectl", "apply", "-f", "-"], input=yaml.dump(local_xrd).encode())
+    os.makedirs(f"apis/{crd['spec']['names']['singular']}", exist_ok=True)
+    with open(f"apis/{crd['spec']['names']['singular']}/definition.yaml", "w") as f:
+        f.write(yaml.dump(local_xrd))
 
     local_comp = copy.deepcopy(comp)
     local_comp["metadata"]["name"] = f"x{crd['spec']['names']['plural']}.api.scs.community"
@@ -84,4 +88,5 @@ for crd in crds["items"]:
     local_comp["spec"]["resources"][0]["base"]["kind"] = crd['spec']['names']['kind']
     local_comp["spec"]["resources"][0]["base"]["apiVersion"] = crd['spec']['group'] + "/v1alpha1"
     local_comp["spec"]["resources"][0]["name"] = crd['spec']['names']['kind']
-    subprocess.run(["kubectl", "apply", "-f", "-"], input=yaml.dump(local_comp).encode())
+    with open(f"apis/{crd['spec']['names']['singular']}/composition.yaml", "w") as f:
+        f.write(yaml.dump(local_comp))
