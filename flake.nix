@@ -16,6 +16,9 @@
           pkgs.kubectl
           pkgs.crossplane-cli
           pkgs.docker-client
+          pkgs.kind
+          pkgs.kubernetes-helm
+          pkgs.python312Packages.kubernetes
         ];
       };
     };
