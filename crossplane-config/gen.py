@@ -1,13 +1,4 @@
-# Loads managed openstack resources from API server, generates mirroring XRD's and composites
-
-import yaml, kubernetes.client, kubernetes.config, copy, json, subprocess, os
-
-# Reads the KUBECONFIG env variable or uses ~/.kube/config
-kubernetes.config.load_kube_config()
-
-apiext = kubernetes.client.ApiextensionsV1Api()
-
-crds = json.loads(apiext.list_custom_resource_definition(_preload_content=False).data)
+import yaml, copy, json, subprocess, os, os.path
 
 xrd = yaml.load("""
 apiVersion: apiextensions.crossplane.io/v1
@@ -58,7 +49,9 @@ spec:
     kind: XSomethingV2
 """, Loader=yaml.SafeLoader)
 
-for crd in crds["items"]:
+for crd_file in os.listdir("provider-openstack/package/crds"):
+    with open(os.path.join("provider-openstack/package/crds", crd_file)) as f:
+        crd = yaml.safe_load(f.read())
     name = crd["metadata"]["name"]
     if not name.endswith(".openstack.upbound.io") and not name.endswith(".openstack.crossplane.io"):
         print("Skipping item {}".format(name))
