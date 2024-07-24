@@ -16,14 +16,15 @@ cluster:
 	helm repo update
 	helm install crossplane --namespace crossplane-system --create-namespace crossplane-stable/crossplane
 
-gen:
+gen-openstack:
 	ls provider-openstack || git clone https://github.com/crossplane-contrib/provider-openstack.git -b v0.4.0
-	python3 gen.py
+	python3 openstack-gen.py
 login:
 	docker login registry.scs.community
-build:
-	crossplane xpkg build
-push:
-	crossplane xpkg push registry.scs.community/central-api/configuration:$$(git rev-parse HEAD)
-install:
-	crossplane xpkg install configuration registry.scs.community/central-api/configuration:$$(git rev-parse HEAD)
+build-and-push:
+	cd openstack && crossplane xpkg build
+	cd openstack && crossplane xpkg push registry.scs.community/central-api/openstack:$$(git rev-parse HEAD)
+	cd kubernetes-capi && crossplane xpkg build
+	cd kubernetes-capi && crossplane xpkg push registry.scs.community/central-api/kubernetes-capi:$$(git rev-parse HEAD)
+	cd kubernetes-gardener && crossplane xpkg build
+	cd kubernetes-gardener && crossplane xpkg push registry.scs.community/central-api/kubernetes-gardener:$$(git rev-parse HEAD)
