@@ -1,0 +1,4 @@
+---
+job:
+  name: hello-world
+  run: 'echo "hello world"'
