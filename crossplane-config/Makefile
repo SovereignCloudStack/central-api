@@ -3,7 +3,7 @@ nix-install:
 	bash -c 'sh <(curl -L https://nixos.org/nix/install) --no-daemon'
 	mkdir -p ~/.config/nix
 	echo 'experimental-features = nix-command flakes' > ~/.config/nix/nix.conf
-	cd .. && ~/.nix-profile/bin/nix develop
+	~/.nix-profile/bin/nix develop
 
 ##
 # All following targets require tooling to be installed
