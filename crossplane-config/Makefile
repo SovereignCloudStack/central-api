@@ -3,6 +3,7 @@ nix-install:
 	bash -c 'sh <(curl -L https://nixos.org/nix/install) --no-daemon'
 	mkdir -p ~/.config/nix
 	echo 'experimental-features = nix-command flakes' > ~/.config/nix/nix.conf
+nix-develop:
 	~/.nix-profile/bin/nix develop
 
 ##
@@ -20,7 +21,7 @@ gen-openstack:
 	ls provider-openstack || git clone https://github.com/crossplane-contrib/provider-openstack.git -b v0.4.0
 	python3 openstack-gen.py
 login:
-	docker login registry.scs.community
+	docker login https://registry.scs.community
 build-and-push:
 	cd openstack && crossplane xpkg build
 	cd openstack && crossplane xpkg push registry.scs.community/central-api/openstack:$$(git rev-parse HEAD)

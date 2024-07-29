@@ -1,4 +1,12 @@
 ---
-job:
-  name: hello-world
-  run: 'echo "hello world"'
+- job:
+    name: build
+    parent: base
+    run: crossplane-config/zuul.yaml
+- project:
+    name: SovereignCloudStack/central-api
+    merge-mode: squash-merge
+    default-branch: main
+    check:
+      jobs:
+      - build

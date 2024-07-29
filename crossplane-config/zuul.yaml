@@ -1,0 +1,32 @@
+---
+- name: prepare nix
+  hosts: all
+  tasks:
+  - name: Get Nix installer
+    ansible.builtin.get_url:
+      url: https://nixos.org/nix/install
+      dest: /tmp/nix-installer.sh
+  - name: Install nix
+    ansible.builtin.shell:
+      cmd: |-
+        sh /tmp/nix-installer.sh --no-daemon
+        mkdir -p ~/.config/nix
+        echo 'experimental-features = nix-command flakes' > ~/.config/nix/nix.conf
+- name: registry-login
+  hosts: all
+  tasks:
+  - name: login
+    community.docker.docker_login:
+      registry_url: https://registry.scs.community
+      username: "robot$central-api+zuulci"
+      password: "{{ registry_password.password }}"
+- name: build
+  hosts: all
+  tasks:
+  - name: build
+    ansible.builtin.shell:
+      chdir: src/github.com/SovereignCloudStack/central-api/crossplane-config
+      cmd: |-
+        ~/.nix-profile/bin/nix develop -c bash -c '
+        make gen-openstack
+        make build-and-push'
