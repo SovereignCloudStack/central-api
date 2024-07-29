@@ -16,6 +16,7 @@
   hosts: all
   tasks:
   - name: login
+    no_log: true
     community.docker.docker_login:
       registry_url: https://registry.scs.community
       username: "robot$central-api+zuulci"
