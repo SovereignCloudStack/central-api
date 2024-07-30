@@ -1,11 +1,4 @@
-import yaml, kubernetes.client, kubernetes.config, copy, json, subprocess
-
-# Reads the KUBECONFIG env variable or uses ~/.kube/config
-kubernetes.config.load_kube_config()
-
-apiext = kubernetes.client.ApiextensionsV1Api()
-
-crds = json.loads(apiext.list_custom_resource_definition(_preload_content=False).data)
+import yaml, copy, json, subprocess, os, os.path
 
 xrd = yaml.load("""
 apiVersion: apiextensions.crossplane.io/v1
@@ -56,7 +49,9 @@ spec:
     kind: XSomethingV2
 """, Loader=yaml.SafeLoader)
 
-for crd in crds["items"]:
+for crd_file in os.listdir("provider-openstack/package/crds"):
+    with open(os.path.join("provider-openstack/package/crds", crd_file)) as f:
+        crd = yaml.safe_load(f.read())
     name = crd["metadata"]["name"]
     if not name.endswith(".openstack.upbound.io") and not name.endswith(".openstack.crossplane.io"):
         print("Skipping item {}".format(name))
@@ -75,7 +70,9 @@ for crd in crds["items"]:
     local_xrd["metadata"]["name"] = f"x{crd['spec']['names']['plural']}.api.scs.community"
     local_xrd["spec"]["names"] = {"kind": f"x{crd['spec']['names']['kind'].lower()}", "plural": f"x{crd['spec']['names']['plural']}"}
     local_xrd["spec"]["claimNames"] = crd["spec"]["names"]
-    subprocess.run(["kubectl", "apply", "-f", "-"], input=yaml.dump(local_xrd).encode())
+    os.makedirs(f"openstack/apis/{crd['spec']['names']['singular']}", exist_ok=True)
+    with open(f"openstack/apis/{crd['spec']['names']['singular']}/definition.yaml", "w") as f:
+        f.write(yaml.dump(local_xrd))
 
     local_comp = copy.deepcopy(comp)
     local_comp["metadata"]["name"] = f"x{crd['spec']['names']['plural']}.api.scs.community"
@@ -84,4 +81,5 @@ for crd in crds["items"]:
     local_comp["spec"]["resources"][0]["base"]["kind"] = crd['spec']['names']['kind']
     local_comp["spec"]["resources"][0]["base"]["apiVersion"] = crd['spec']['group'] + "/v1alpha1"
     local_comp["spec"]["resources"][0]["name"] = crd['spec']['names']['kind']
-    subprocess.run(["kubectl", "apply", "-f", "-"], input=yaml.dump(local_comp).encode())
+    with open(f"openstack/apis/{crd['spec']['names']['singular']}/composition.yaml", "w") as f:
+        f.write(yaml.dump(local_comp))

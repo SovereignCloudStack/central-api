@@ -11,8 +11,12 @@ Also, these instructions are striving to implement [namespaces as isolation mech
 
 1. Setup testing Kubernetes cluster
 1. Install crossplane
-1. Install openstack provider (See `provider.yaml`)
-1. Mirror openstack resources (See `gen.py`)
+1. Select fitting configuration package (containing provider definitions, XRD's and composites) and install it
+    ```bash
+    export VERSION=... # Currently repo git hash
+    export XPKG=... # openstack / kubernetes-capi / kubernetes-gardener
+    crossplane xpkg install configuration registry.scs.community/central-api/configuration/$XPKG:$VERSION
+    ```
 1. Setup provider config (wearing CSP hat)
     ```yaml
     apiVersion: v1

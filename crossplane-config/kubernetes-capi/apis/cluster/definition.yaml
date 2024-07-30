@@ -1,0 +1,41 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xclusters.api.scs.community
+spec:
+  group: api.scs.community
+  names:
+    kind: XCluster
+    plural: xclusters
+  claimNames:
+    kind: Cluster
+    plural: clusters
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            required:
+            - version
+#           - nodeGroups
+            properties:
+              version:
+                type: string
+#             nodeGroups:
+#               type: array
+#               items:
+#                 type: object
+#                 required:
+#                 - name
+#                 - instanceType
+#                 - number
+#                 properties:
+#                   name:
+#                     type: string
+#                   instanceType:
+#                     type: string
+#                   number:
+#                     type: integer

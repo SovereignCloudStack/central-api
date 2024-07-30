@@ -1,0 +1,30 @@
+---
+- job:
+    name: build
+    parent: base
+    secrets:
+    - name: registry-password
+      secret: registry-credentials
+    run: crossplane-config/zuul.yaml
+- project:
+    name: SovereignCloudStack/central-api
+    merge-mode: squash-merge
+    default-branch: main
+    check:
+      jobs:
+      - build
+- secret:
+    name: registry-credentials
+    data:
+      password: !encrypted/pkcs1-oaep
+        - hrNds6eYR9In400lmy0eqWJAxzf/aJz/MMSRyfydgDAPXUImuvKDqbEGdnp+jl5VXi5UP
+          hXjRYIKvSmhRmcsC+h75IN05eVvLPRQ86+Iw6h+Gmi72asmyDmCQFRWWj5uSfSwsq0kjB
+          OOlv5hqe0109Ee7FpboZlyHwE8K5nVkxWJ2D5fepsxFp63ik8kTLcF32D6RTOPeMlFVrP
+          xBoUj3dCLnacx3jJIQsCeCuN0uCsBBfObK3iFeIqmoaqSJ9Wlv4m/ilLRz+cCLkHqBF1n
+          2GrLjQUtgcaCoksC4r7oV1gS445bT/bRK2WJfVyRoP0BKE8OVZHN9RLgx1ne6mEO9ttxV
+          ElvGe9CW0AS6xphYHmvOoqb3+PsEGCNBVDyDlubGPCnzCWXfiTgPzw9617wBL3xBX3Te1
+          SlZ9h/Ncuk3+/Bjv/AyNoJV6X7QCB37Ow/3ntcfmLX67gA0v08AT8tFG0/q1EpOYLrluc
+          vxPJ6gXJ+wOnAz7po3iCmg9bAv1rElICnxrLTUjQ2ngAdasewOUnQig+IaV9kFPqHpBLR
+          zXzFpPTG4eAHPNdu9wv37bGEC6dbtcxI/yRG5ofFeqawnXgzm6Imo9b+JQiscIs2oLdMA
+          6dxPGvjtMuVSYZUThcJLkgbJbMzNNDdB0nL3EWBYaK9isaymbOkBWhXAKxM0/I=
+
