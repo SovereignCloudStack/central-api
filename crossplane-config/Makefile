@@ -18,7 +18,7 @@ cluster:
 	helm install crossplane --namespace crossplane-system --create-namespace crossplane-stable/crossplane
 
 gen-openstack:
-	ls provider-openstack || git clone https://github.com/crossplane-contrib/provider-openstack.git -b v0.4.0
+	ls provider-openstack || git clone --depth 1 https://github.com/crossplane-contrib/provider-openstack.git -b v0.4.0
 	python3 openstack-gen.py
 login:
 	docker login https://registry.scs.community
