@@ -1,7 +1,7 @@
 apiVersion: meta.pkg.crossplane.io/v1alpha1
 kind: Configuration
 metadata:
-  name: scs-central-api-kubernetes-gardener
+  name: scs-central-api-kubernetes
 spec:
   dependsOn:
   - provider: xpkg.upbound.io/crossplane-contrib/provider-kubernetes
