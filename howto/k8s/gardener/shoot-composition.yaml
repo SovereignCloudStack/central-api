@@ -40,7 +40,7 @@ spec:
                       type: SCS-2V-4
                       image:
                         name: gardenlinux
-                        version: 1443.3.0
+                        version: 1443.7.0
                       architecture: amd64
                     volume:
                       type: ssd
