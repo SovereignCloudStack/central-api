@@ -13,9 +13,9 @@ Also, these instructions are striving to implement [namespaces as isolation mech
 1. Install crossplane
 1. Select fitting configuration package (containing provider definitions, XRD's and composites) and install it
     ```bash
-    export VERSION=... # Currently repo git hash
-    export XPKG=... # openstack / kubernetes-capi / kubernetes-gardener
-    crossplane xpkg install configuration registry.scs.community/central-api/configuration/$XPKG:$VERSION
+    export VERSION=...
+    export XPKG=... # openstack / kubernetes
+    crossplane xpkg install configuration registry.scs.community/central-api/$XPKG:$VERSION
     ```
 1. Setup provider config (wearing CSP hat)
     ```yaml
