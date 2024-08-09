@@ -12,6 +12,8 @@ spec:
     plural: clusters
   versions:
   - name: v1alpha1
+    served: true
+    referenceable: true
     schema:
       openAPIV3Schema:
         type: object
@@ -20,22 +22,6 @@ spec:
             type: object
             required:
             - version
-#           - nodeGroups
             properties:
               version:
                 type: string
-#             nodeGroups:
-#               type: array
-#               items:
-#                 type: object
-#                 required:
-#                 - name
-#                 - instanceType
-#                 - number
-#                 properties:
-#                   name:
-#                     type: string
-#                   instanceType:
-#                     type: string
-#                   number:
-#                     type: integer
