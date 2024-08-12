@@ -50,6 +50,10 @@ spec:
                       name: md-0
                       replicas: 2
     patches:
+    - fromFieldPath: spec.claimRef.namespace
+      toFieldPath: spec.providerConfigRef.name
+      policy:
+        fromFieldPath: Required
     - type: FromCompositeFieldPath
       fromFieldPath: spec.version
       toFieldPath: spec.forProvider.manifest.spec.topology.version
