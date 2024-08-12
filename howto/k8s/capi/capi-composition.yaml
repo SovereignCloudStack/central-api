@@ -19,7 +19,7 @@ spec:
             kind: Cluster
             metadata:
               name: TO-BE-SET
-              namespace: cluster
+              namespace: kaas-playground9
               labels:
                 managed-secret: cloud-config
             spec:
@@ -39,17 +39,21 @@ spec:
                     value: "SCS-2V-4-50"
                   - name: external_id
                     value: ebfe5546-f09f-4f42-ab54-094e457d42ec # gx-scs
-                class: openstack-oidc-1-29-v0-sha.f6d258a
+                class: openstack-scs-1-29-v1
                 controlPlane:
                   replicas: 1
                 version: TO-BE-SET #v1.29.0
                 workers:
                   machineDeployments:
-                    - class: openstack-oidc-1-29-v0-sha.f6d258a
+                    - class: default-worker
                       failureDomain: nova
                       name: md-0
                       replicas: 2
     patches:
+    - fromFieldPath: spec.claimRef.namespace
+      toFieldPath: spec.providerConfigRef.name
+      policy:
+        fromFieldPath: Required
     - type: FromCompositeFieldPath
       fromFieldPath: spec.version
       toFieldPath: spec.forProvider.manifest.spec.topology.version

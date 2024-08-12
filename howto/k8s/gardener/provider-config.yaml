@@ -4,6 +4,7 @@ metadata:
   name: template-cluster
 spec:
   credentials:
+    source: Secret
     secretRef:
       key: kubeconfig
       name: template-service-account
