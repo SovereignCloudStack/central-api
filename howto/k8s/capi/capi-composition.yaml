@@ -45,7 +45,7 @@ spec:
                 version: TO-BE-SET #v1.29.0
                 workers:
                   machineDeployments:
-                    - class: openstack-scs-1-29-v1
+                    - class: default-worker
                       failureDomain: nova
                       name: md-0
                       replicas: 2
